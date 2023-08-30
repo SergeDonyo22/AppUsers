@@ -14,7 +14,11 @@ class NotificationPage extends StatelessWidget {
       message: 'User delete',
       date: DateTime.now(),
     ),
-    // Ajoutez d'autres notifications ici
+    NotificationModel(
+      iconData: Icons.notifications,
+      message: 'User update',
+      date: DateTime.now(),
+    )
   ];
 
   NotificationPage({super.key});
@@ -50,26 +54,6 @@ class NotificationPage extends StatelessWidget {
             title: Text(notifications[index].message),
             trailing: Text(formattedDate), // Affiche l'heure à droite du message
           );
-        },
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Users',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
-          ),
-        ],
-        currentIndex: 1, // Index de l'élément sélectionné actuellement
-        selectedItemColor: Colors.black, // Couleur des icônes sélectionnées
-        unselectedItemColor: Colors.grey, // Couleur des icônes non sélectionnées
-        onTap: (index) {
-          if (index == 0) {
-            Navigator.pop(context); // Revenir à la page de liste d'utilisateurs
-          }
         },
       ),
     );

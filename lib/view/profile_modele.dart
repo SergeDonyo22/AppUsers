@@ -1,15 +1,17 @@
+import 'package:flutter/material.dart';
+
 class UserProfile {
+  late final IconData iconData;
   late final String firstName;
   late final String lastName;
   late final int age;
 
   UserProfile({
+    required this.iconData,
     required this.firstName,
     required this.lastName,
     required this.age,
   });
 
-  String? get avatarUrl => null;
-
-  void add(UserProfile userProfile) {}
+  static void removeAt(int index) {}
 }

@@ -1,19 +1,18 @@
 import 'package:app_front_end/view/create_profile_page.dart';
-import 'package:app_front_end/view/notification_page.dart';
 import 'package:app_front_end/view/profile_modele.dart';
+import 'package:app_front_end/view/user_profile.dart';
 import 'package:flutter/material.dart';
 
 class UserListPage extends StatelessWidget {
-  final List<UserProfile> userProfiles;
-
-  const UserListPage({super.key, required this.userProfiles});
-
-  /*List<Map<String, dynamic>> users = [
-    {"name": "Aubin DONYO", "age": 24},
-    { "name": "Emilie ETONAM", "age": 20 },
-    { "name": "Ange TAO", "age": 07},
-    { "name": "Précieuse MABLE", "age": 19 }
-  ]; */
+  final List<UserProfile> userProfiles = [
+    UserProfile(
+        iconData: Icons.person, firstName: 'Serge', lastName: 'TAO', age: 20),
+    UserProfile(
+        iconData: Icons.person, firstName: 'Roger', lastName: 'CLOU', age: 23),
+    UserProfile(
+        iconData: Icons.person, firstName: 'Amir', lastName: 'BOUE', age: 30),
+  ];
+  UserListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,51 +27,30 @@ class UserListPage extends StatelessWidget {
         itemBuilder: (context, index) {
           UserProfile userProfile = userProfiles[index];
           return ListTile(
-            leading: Container(
-              width: 40,
-              height: 40,
-              decoration: const BoxDecoration(
-                color: Colors.grey,
-                shape: BoxShape.circle,
+              leading: Container(
+                width: 40,
+                height: 40,
+                decoration: const BoxDecoration(
+                  color: Colors.grey,
+                  shape: BoxShape.circle,
+                ),
+                child: const Center(
+                  child: Icon(Icons.person,
+                      color: Color.fromARGB(255, 16, 15, 15)),
+                ),
               ),
-              child: const Center(
-                child:
-                    Icon(Icons.person, color: Color.fromARGB(255, 16, 14, 14)),
-              ),
-            ),
-            title: Text('${userProfile.firstName} ${userProfile.lastName}'),
-            subtitle: Text('Âge: ${userProfile.age}'),
-          );
+              title: Text("${userProfile.firstName} ${userProfile.lastName}"),
+              subtitle: Text("${userProfile.age} ans"),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            UserProfilePage(userProfiles: userProfile)));
+              });
         },
       ),
-    bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Users',
-            backgroundColor: Colors.black
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
-            backgroundColor: Colors.black
-          ),
-        ],
-        currentIndex: 0, // Index de l'élément sélectionné actuellement
-        selectedItemColor: Colors.black, // Couleur des icônes sélectionnées
-        unselectedItemColor: Colors.grey, // Couleur des icônes non sélectionnées
-        onTap: (index) {
-          if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => NotificationPage(), // Page de notification
-              ),
-            );
-          }
-        },
-    ),
-    floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
@@ -87,4 +65,12 @@ class UserListPage extends StatelessWidget {
       ),
     );
   }
+
+  void _handleDelete(int index) {
+    setState(() {
+      UserProfile.removeAt(index);
+    });
+  }
+
+  void setState(Null Function() param0) {}
 }
